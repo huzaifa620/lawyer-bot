@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import {
   Accordion,
   AccordionHeader,
@@ -24,6 +24,12 @@ function Icon({ id, open }) {
 
 export default function ChatHistory({ history }) {
   const [open, setOpen] = useState(0);
+
+  useEffect(() => {
+    if (history.length > 0) {
+      setOpen(history.length);
+    }
+  }, [history]);
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);

@@ -24,6 +24,7 @@ export default function Home() {
     ];
     setQas(newQas);
     setQuestion("");
+    setRows(1)
   };
   
 
