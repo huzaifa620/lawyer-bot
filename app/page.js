@@ -15,7 +15,7 @@ export default function Home() {
       <div className="h-full flex items-center justify-center">
         <div className="relative flex w-full max-w-[50%]">
             <Textarea
-              className="w-full h-2 py-4 pr-20 border border-gray-300 rounded-2xl overflow-y-auto"
+              className="w-full py-4 pr-20 border border-gray-300 rounded-2xl overflow-y-auto"
               color="teal"
               type="text"
               label="Enter a question"

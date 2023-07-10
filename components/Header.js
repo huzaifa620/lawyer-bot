@@ -1,11 +1,10 @@
 import React from "react";
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   Button,
   IconButton,
-  Card,
 } from "@material-tailwind/react";
  
 export default function Example() {
@@ -123,12 +122,12 @@ export default function Example() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           {navList}
           <Button variant="gradient" size="sm" fullWidth className="mb-2">
             <span>Logout</span>
           </Button>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </>
   );
