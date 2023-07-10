@@ -38,9 +38,9 @@ export default function Home() {
 
         <div className="flex w-72 flex-col gap-6">
           <Select color="teal" label="Select Namespace" onChange={(value) => setNameSpace(value)}>
-            <Option value="">Booking</Option>
+            <Option value="banking">Banking</Option>
             <Option value="rehani-soko-privacy-and-user-agreements">Privacy and User agreements</Option>
-            <Option value="">Real Estate</Option>
+            <Option value="real-estate">Real Estate</Option>
           </Select>
         </div>
 

@@ -44,7 +44,7 @@ export default function ChatHistory({ history }) {
             animate={customAnimation}
             icon={<Icon id={index + 1} open={open} />}
           >
-            <AccordionHeader onClick={() => handleOpen(index + 1)}>
+            <AccordionHeader className="overflow-hidden" onClick={() => handleOpen(index + 1)}>
               {item.question}
             </AccordionHeader>
             <AccordionBody>{item.answer}</AccordionBody>
