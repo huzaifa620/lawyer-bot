@@ -37,17 +37,17 @@ export default function Home() {
           <h1 className="text-lg">Hi there, what can I help you with today?</h1> 
         }
 
-        <div className="flex w-72 flex-col gap-6">
-          <Select color="teal" label="Select Namespace" onChange={(value) => setNameSpace(value)}>
+        <div className="sticky bottom-32 flex w-72 flex-col gap-6">
+          <Select className="bg-white" color="teal" label="Select Namespace" onChange={(value) => setNameSpace(value)}>
             <Option value="banking">Banking</Option>
             <Option value="rehani-soko-privacy-and-user-agreements">Privacy and User agreements</Option>
             <Option value="real-estate">Real Estate</Option>
           </Select>
         </div>
 
-        <div className="relative flex w-full max-w-[50%]">
+        <div className="sticky bottom-12 flex w-full max-w-[50%]">
             <textarea
-              className="w-full p-2 pr-20 border border-gray-300 rounded overflow-y-auto outline-none focus:ring-1 ring-teal-500"
+              className="w-full p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500"
               placeholder="Ask a question"
               type="text"
               rows={rows}

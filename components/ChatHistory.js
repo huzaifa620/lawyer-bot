@@ -31,6 +31,7 @@ export default function ChatHistory({ history }) {
       setOpen(history.length);
       setLastAnswer(history[history.length - 1].answer);
     }
+    window.scrollTo(0, window.innerHeight*100000000000)
   }, [history]);
 
   const handleOpen = (value) => {
