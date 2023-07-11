@@ -44,7 +44,7 @@ export default function ChatHistory({ history }) {
   };
 
   return (
-    <div className="w-[40%] border pt-4 pb-8 px-4 rounded-2xl">
+    <div className="w-[40%] border pt-4 pb-8 px-4 rounded-2xl bg-white shadow-2xl mb-10">
       <Fragment>
         {history.map((item, index) => (
           <Accordion

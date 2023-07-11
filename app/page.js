@@ -22,37 +22,48 @@ export default function Home() {
       namespace: nameSpace
     };
 
-    try {
-      const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
-
-      if (response.status === 200) {
-        const data = response.data;
-        const newQas = [
-          ...qas,
-          {
-            question: question,
-            answer: data.answer
-          }
-        ];
-        setQas(newQas);
-        setQuestion("");
-        setRows(1);
-      } else {
-        console.error("Error:", response.status);
+    const newQas = [
+      ...qas,
+      {
+        question: question,
+        answer: "new around here"
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    ];
+    setQas(newQas);
+    setQuestion("");
+    setRows(1);
+
+    // try {
+    //   const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
+
+    //   if (response.status === 200) {
+    //     const data = response.data;
+    //     const newQas = [
+    //       ...qas,
+    //       {
+    //         question: question,
+    //         answer: data.answer
+    //       }
+    //     ];
+    //     setQas(newQas);
+    //     setQuestion("");
+    //     setRows(1);
+    //   } else {
+    //     console.error("Error:", response.status);
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
   }; 
 
   return (
-    <div className="flex flex-col h-auto min-h-screen space-y-12">
+    <div className="flex flex-col min-h-screen space-y-12" style={{ backgroundImage: 'url("https://media.istockphoto.com/id/657510172/vector/geometric-pattern-seamless-vector-background.jpg?s=612x612&w=0&k=20&c=IadUgpO6t724bMp6hVlxsy-qoAjIaWqp4qcrsJuHb8I=")'}}>
       <Header />
-      <div className="h-full flex flex-col space-y-12 items-center justify-center">
+      <div className="flex flex-col space-y-12 items-center justify-center px-4 bg-cove bg-center min-h-[93%] h-[100%]">
         {qas.length !== 0 ? (
           <ChatHistory history={qas} />
         ) : (
-          <h1 className="text-lg">Hi there, what can I help you with today?</h1>
+          <h1 className="text-3xl font-semibold text-center">Hi there, what can I help you with today?</h1>
         )}
 
         <div className="sticky bottom-32 z-20 flex w-72 flex-col gap-6">
@@ -71,7 +82,7 @@ export default function Home() {
           </Select>
         </div>
 
-        <div className="sticky bottom-12 z-10 flex w-full max-w-[50%]">
+        <div className="sticky bottom-12 z-10 flex w-full px-4 lg:px-0 lg:max-w-[50%]">
           <textarea
             className="w-full p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500"
             placeholder="Ask a question"
@@ -91,7 +102,7 @@ export default function Home() {
             size="sm"
             color={question ? "teal" : "blue-gray"}
             disabled={!question}
-            className="!absolute right-1 bottom-1 rounded"
+            className="!absolute right-6 lg:right-1 bottom-1 rounded"
             onClick={getAnswer}
           >
             SEND
