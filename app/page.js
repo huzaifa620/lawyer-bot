@@ -66,7 +66,7 @@ export default function Home() {
           <h1 className="text-3xl font-semibold text-center">Hi there, what can I help you with today?</h1>
         )}
 
-        <div className="sticky bottom-32 z-20 flex w-72 flex-col gap-6">
+        <div className="sticky bottom-32 z-20 flex w-72 flex-col gap-6 shadow-2xl">
           <Select
             className="bg-white"
             color="teal"
@@ -82,9 +82,9 @@ export default function Home() {
           </Select>
         </div>
 
-        <div className="sticky bottom-12 z-10 flex w-full px-4 lg:px-0 lg:max-w-[50%]">
+        <div className="sticky bottom-12 z-10 flex w-full px-4 lg:px-0 lg:max-w-[50%] shadow-2xl">
           <textarea
-            className="w-full p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500"
+            className="w-full p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500 shadow-2xl"
             placeholder="Ask a question"
             type="text"
             rows={rows}

@@ -64,12 +64,12 @@ export default function Example() {
  
   return (
     <>
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 bg-transparent">
+      <Navbar className="sticky top-0 z-30 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 bg-transparent">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
             href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
+            className="mr-4 cursor-pointer py-1.5 font-bold text-lg"
           >
             Lawyer Bot
           </Typography>
