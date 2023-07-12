@@ -5,6 +5,7 @@ import Header from "@/components/Header"
 import { Button } from "@material-tailwind/react";
 import { Select, Option } from "@material-tailwind/react";
 import ChatHistory from "@/components/ChatHistory";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import axios from "axios";
 
 export default function Home() {
@@ -12,48 +13,40 @@ export default function Home() {
   const [rows, setRows] = useState(1);
   const [question, setQuestion] = useState("");
   const [nameSpace, setNameSpace] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const onChange = ({ target }) => setQuestion(target.value);
 
   const getAnswer = async () => {
+    setLoading(true)
     const body = {
       query: question,
       pineconeIndexName: "index-rehani-soko-1-index",
       namespace: nameSpace
     };
 
-    const newQas = [
-      ...qas,
-      {
-        question: question,
-        answer: "new around here"
+    try {
+      const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
+
+      if (response.status === 200) {
+        const data = response.data;
+        const newQas = [
+          ...qas,
+          {
+            question: question,
+            answer: data.answer
+          }
+        ];
+        setQas(newQas);
+        setQuestion("");
+        setRows(1);
+        setLoading(false)
+      } else {
+        console.error("Error:", response.status);
       }
-    ];
-    setQas(newQas);
-    setQuestion("");
-    setRows(1);
-
-    // try {
-    //   const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
-
-    //   if (response.status === 200) {
-    //     const data = response.data;
-    //     const newQas = [
-    //       ...qas,
-    //       {
-    //         question: question,
-    //         answer: data.answer
-    //       }
-    //     ];
-    //     setQas(newQas);
-    //     setQuestion("");
-    //     setRows(1);
-    //   } else {
-    //     console.error("Error:", response.status);
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }; 
 
   return (
@@ -102,10 +95,10 @@ export default function Home() {
             size="sm"
             color={question ? "teal" : "blue-gray"}
             disabled={!question}
-            className="!absolute right-6 lg:right-1 bottom-1 rounded"
+            className="!absolute right-6 lg:right-1 bottom-1 rounded w-[62px] h-[32px]"
             onClick={getAnswer}
           >
-            SEND
+            {loading ? <LoadingIndicator /> : "SEND"} 
           </Button>
         </div>
       </div>

@@ -82,7 +82,7 @@ function Typewriter({ text }) {
       const timeout = setTimeout(() => {
         setDisplayText((prevText) => prevText + text[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, 100);
+      }, 10);
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, text]);
