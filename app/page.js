@@ -52,56 +52,56 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" style={{ backgroundImage: 'url("https://media.istockphoto.com/id/657510172/vector/geometric-pattern-seamless-vector-background.jpg?s=612x612&w=0&k=20&c=IadUgpO6t724bMp6hVlxsy-qoAjIaWqp4qcrsJuHb8I=")'}}>
       <Header />
-      <div className="flex flex-col space-y-12 items-center justify-center px-4 bg-center min-h-[93%] h-[100%] w-full">
+      <div className="flex flex-col space-y-12 items-center justify-center px-4 lg:px-0 bg-center min-h-[93%] h-[100%] w-full">
         {qas.length !== 0 ? (
           <ChatHistory history={qas} />
         ) : (
           <h1 className="text-3xl font-semibold text-center">Hi there, what can I help you with today?</h1>
         )}
 
-        <div className="sticky bottom-12 z-10 flex flex-col w-full px-4 lg:px-0 lg:max-w-[50%] shadow-2xl items-center justify-center space-y-12">
-
-          <div className="z-20 flex w-72 flex-col items-center justify-center gap-6 shadow-2xl">
-            <Select
-              className="bg-white"
-              color="teal"
-              label="Select Namespace"
-              value={nameSpace}
-              onChange={(value) => setNameSpace(value)}
-            >
-              <Option value="banking">Banking</Option>
-              <Option value="rehani-soko-privacy-and-user-agreements">
-                Privacy and User agreements
-              </Option>
-              <Option value="real-estate">Real Estate</Option>
-            </Select>
-          </div>
-          
-          <textarea
-            className="w-full p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500 shadow-2xl scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
-            placeholder="Ask a question"
-            type="text"
-            rows={rows}
-            value={question}
-            onChange={onChange}
-            onInput={(e) => {
-              e.target.rows = question?.length ? 1 : 1;
-              const rowsValue = Math.min(Math.ceil(e.target.scrollHeight / 40), 10);
-              e.target.rows = rowsValue;
-              setRows(rowsValue);
-            }}
-            disabled={!nameSpace}
-          />
-          <Button
-            size="sm"
-            color={question ? "teal" : "blue-gray"}
-            disabled={!question}
-            className="!absolute right-6 lg:right-1 bottom-1 rounded w-[62px] h-[32px]"
-            onClick={getAnswer}
+      <div className="sticky bottom-0 z-10 flex flex-col w-full px-4 lg:px-0 shadow-2xl items-center space-y-12 relative backdrop-filter backdrop-blur-2xl pt-5 py-11">
+        <div className="z-20 flex w-72 flex-col items-center justify-center gap-6 shadow-2xl">
+          <Select
+            className="bg-white"
+            color="teal"
+            label="Select Namespace"
+            value={nameSpace}
+            onChange={(value) => setNameSpace(value)}
           >
-            {loading ? <LoadingIndicator /> : <span className="tracking-widest">SEND</span>} 
-          </Button>
+            <Option value="banking">Banking</Option>
+            <Option value="rehani-soko-privacy-and-user-agreements">
+              Privacy and User agreements
+            </Option>
+            <Option value="real-estate">Real Estate</Option>
+          </Select>
         </div>
+        
+        <textarea
+          className="w-full lg:max-w-[50%] mb-4 p-2 pr-20 border border-gray-300 rounded outline-none focus:ring-1 ring-teal-500 shadow-2xl scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+          placeholder="Ask a question"
+          type="text"
+          rows={rows}
+          value={question}
+          onChange={onChange}
+          onInput={(e) => {
+            e.target.rows = question?.length ? 1 : 1;
+            const rowsValue = Math.min(Math.ceil(e.target.scrollHeight / 40), 10);
+            e.target.rows = rowsValue;
+            setRows(rowsValue);
+          }}
+          disabled={!nameSpace}
+        />
+        <Button
+          size="sm"
+          color={question ? "teal" : "blue-gray"}
+          disabled={!question}
+          className="!absolute right-6 lg:right-[25.25%] bottom-12 rounded w-[62px] h-[32px]"
+          onClick={getAnswer}
+        >
+          {loading ? <LoadingIndicator /> : <span className="tracking-widest">SEND</span>} 
+        </Button>
+      </div>
+
       </div>
     </div>
   );
