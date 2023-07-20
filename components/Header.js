@@ -1,14 +1,11 @@
 import React from "react";
-import {
-  Navbar,
-  Collapse,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
+import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tailwind/react";
+import { useRouter, usePathname } from "next/navigation";
  
 export default function Example() {
   const [openNav, setOpenNav] = React.useState(false);
+  const router = useRouter()
+  const pathname = usePathname()
  
   React.useEffect(() => {
     window.addEventListener(
@@ -23,41 +20,21 @@ export default function Example() {
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 text-md tracking-widest"
       >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
+        <p onClick={() => router.push('/embed')} className={`flex items-center cursor-pointer p-1 hover:text-teal-500 ${pathname.startsWith('/embed') && "text-teal-500 underline underline-offset-8 "}`} >
+          Embed
+        </p>
       </Typography>
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
-        className="p-1 font-normal"
+        className="p-1 text-md tracking-widest"
       >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
+        <p onClick={() => router.push('/search')} className={`flex items-center cursor-pointer p-1 hover:text-teal-500 ${pathname.startsWith('/search') && "text-teal-500 underline underline-offset-8 "}`} >
+          Search
+        </p>
       </Typography>
     </ul>
   );
@@ -67,9 +44,8 @@ export default function Example() {
       <Navbar className="sticky top-0 z-30 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 bg-transparent">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Typography
-            as="a"
-            href="#"
             className="mr-4 cursor-pointer py-1.5 font-bold text-lg"
+            onClick={() => router.push('/')}
           >
             Lawyer Bot
           </Typography>

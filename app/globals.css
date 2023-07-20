@@ -1,7 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
-    border-radius: 9999px; /* Adjust the border radius for rounding */
-}

@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" style={{ backgroundImage: 'url("https://media.istockphoto.com/id/657510172/vector/geometric-pattern-seamless-vector-background.jpg?s=612x612&w=0&k=20&c=IadUgpO6t724bMp6hVlxsy-qoAjIaWqp4qcrsJuHb8I=")'}}>
       <Header />
-      <div className="flex flex-col space-y-12 items-center justify-center px-4 lg:px-0 bg-center min-h-[93%] h-[100%] w-full">
+      <div className="flex flex-col space-y-12 items-center justify-center px- lg:px-0 bg-center min-h-[93%] h-[100%] w-full">
         {qas.length !== 0 ? (
           <ChatHistory history={qas} />
         ) : (

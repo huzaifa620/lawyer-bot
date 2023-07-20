@@ -44,7 +44,7 @@ export default function ChatHistory({ history }) {
   };
 
   return (
-    <div className="w-full lg:w-[40%] border pt-4 pb-8 px-4 rounded-2xl bg-white shadow-2xl mb-10">
+    <div className="w-[95%] lg:w-[50%] border pt-4 pb-8 px-4 lg:px-6 rounded-2xl bg-white shadow-2xl mb-10">
       <Fragment>
         {history.map((item, index) => (
           <Accordion
@@ -59,7 +59,7 @@ export default function ChatHistory({ history }) {
             >
               {item.question}
             </AccordionHeader>
-            <AccordionBody>
+            <AccordionBody className="text-justify">
               {index === history.length - 1 ? (
                 <Typewriter text={lastAnswer} />
               ) : 
