@@ -3,7 +3,7 @@
 import React from 'react'
 import Header from '@/components/Header'
 
-const page = () => {
+const EmbedPage = () => {
 
   const [fileUrl, setFileUrl] = React.useState(null);
   const handleFileChange = (event) => {
@@ -21,7 +21,7 @@ const page = () => {
         <Header />
 
         <div className='flex items-center justify-center text-red-900 font-bold text-9xl'>
-          COMING SOON
+          WORK IN PROGRESS
         </div>
         <div className='flex items-center justify-center'>
           <input type="file" onChange={handleFileChange} />
@@ -31,4 +31,4 @@ const page = () => {
   )
 }
 
-export default page
+export default EmbedPage
