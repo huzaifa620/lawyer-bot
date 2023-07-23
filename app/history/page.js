@@ -3,7 +3,7 @@
 import React from 'react'
 import Header from '@/components/Header'
 
-const EmbedPage = () => {
+const HistoryPage = () => {
 
   const [fileUrl, setFileUrl] = React.useState(null);
   const handleFileChange = (event) => {
@@ -23,12 +23,9 @@ const EmbedPage = () => {
         <div className='flex items-center justify-center text-white font-bold text-9xl'>
           WORK IN PROGRESS
         </div>
-        <div className='flex items-center justify-center'>
-          <input type="file" onChange={handleFileChange} />
-          {fileUrl && <a href={fileUrl} target="_blank" rel="noopener noreferrer">Open File</a>}
-        </div>
+
     </div>
   )
 }
 
-export default EmbedPage
+export default HistoryPage
