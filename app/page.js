@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { Button } from "@material-tailwind/react";
-import { Select, Option } from "@material-tailwind/react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import Typewriter from "@/components/Typewriter";
+import Select from 'react-select'
 import axios from "axios";
 
 export default function Home() {
@@ -15,6 +15,28 @@ export default function Home() {
   const [question, setQuestion] = useState("");
   const [nameSpace, setNameSpace] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      borderColor: state.isFocused ? 'transparent' : 'lightblue',
+      borderRadius: '8px',
+      boxShadow: 'none',
+      '&:hover': {
+        borderColor: 'transparent',
+      },
+    })
+  };
+
+  const options = [
+    { value: 'banking', label: 'Banking' },
+    { value: 'rehani-soko-privacy-and-user-agreements', label: 'Privacy and User agreements' },
+    { value: 'real-estate', label: 'Real Estate' }
+  ]
+
+  const onChangeSelect = (selectedOption) => {
+    setNameSpace(selectedOption.value);
+  }
 
   const onChange = ({ target }) => setQuestion(target.value);
 
@@ -89,7 +111,7 @@ export default function Home() {
         ))}
       </div>
 
-        <h1 className={`text-3xl font-semibold text-center w-1/2 text-white items-center justify-center ${qas?.answer?.length > 50 && "text-justify"}`} key={qas?.answer}>
+        <h1 className={`text-md lg:text-lg 2xl:text-3xl font-semibold text-center px-4 w-full md:w-3/4 2xl:w-1/2 text-white items-center justify-center overflow-y-auto max-h-[50%] ${qas?.answer?.length > 50 && "text-justify"}`} key={qas?.answer}>
           {qas ? (
             <Typewriter text={qas.answer} />
           ) : (
@@ -100,18 +122,13 @@ export default function Home() {
         <div className="sticky bottom-0 z-10 flex flex-col w-full px-4 lg:px-0 items-center space-y-12 relative pt-5 py-11">
           <div className="z-20 flex w-72 flex-col items-center justify-center gap-6 shadow-2xl">
             <Select
-              className="bg-white border-none outline-none transition-none"
-              color="teal"
-              label="Select Namespace"
-              value={nameSpace}
-              onChange={(value) => setNameSpace(value)}
-            >
-              <Option value="banking">Banking</Option>
-              <Option value="rehani-soko-privacy-and-user-agreements">
-                Privacy and User agreements
-              </Option>
-              <Option value="real-estate">Real Estate</Option>
-            </Select>
+              className="w-full focus:outline-none border-none"
+              styles={customStyles}
+              options={options}
+              placeholder={"Select Namespace"}
+              value={options.find((option) => option.value === nameSpace)}
+              onChange={onChangeSelect}
+            />
           </div>
 
           <div className="flex space-x-4 items-center justify-center w-full lg:max-w-[50%] h-auto py-3 px-4 rounded-2xl bg-white">
