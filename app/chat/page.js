@@ -8,7 +8,7 @@ import { Button } from "@material-tailwind/react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import axios from "axios";
 
-const page = () => {
+const ChatPage = () => {
 
     const [qas, setQas] = useState([]);
     const [rows, setRows] = useState(1);
@@ -139,4 +139,4 @@ const page = () => {
     );
 }
 
-export default page
+export default ChatPage
