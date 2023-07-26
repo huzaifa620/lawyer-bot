@@ -3,6 +3,7 @@
 import React, {useState} from 'react'
 import Image from 'next/image';
 import Header from "@/components/Header";
+import Typewriter from "@/components/Typewriter";
 import { Button } from "@material-tailwind/react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import axios from "axios";
@@ -47,6 +48,11 @@ const page = () => {
         }
     }; 
 
+    React.useEffect(() => {
+      const divElement = document.querySelector('div.overflow-y-auto');
+      divElement?.scrollTo(0, divElement.scrollHeight);
+    }, [qas]);
+
     return (
         <div className="flex flex-col items-center justify-end min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" >
           <div className="w-full h-full">
@@ -57,45 +63,57 @@ const page = () => {
               objectFit="cover"
             />
             <Header />
-            <div className="flex relative flex-col space-y-12 items-center justify-between lg:px-0 bg-center w-full min-h-[93vh] py-12">
+            <div className="flex relative flex-col space-y-6 items-center justify-between lg:px-0 bg-center w-full min-h-[93vh] py-8">
 
-              <div className='flex items-center justify-center w-full'>
-                <img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSe0jFhhEGZDdroVHXxac8gHoj7OZg-_tU6VBsM8BCRPpHul5zi' className='w-24 h-24 rounded-full' />
+              <div className='flex flex-col items-center justify-center w-full space-y-4'>
+                <img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSe0jFhhEGZDdroVHXxac8gHoj7OZg-_tU6VBsM8BCRPpHul5zi' className='w-24 h-24 rounded-full' alt='' />
+                <div className='bg-white w-1/2 h-1 ' />
               </div>
 
-              <div className='flex flex-col items-center justify-center min-h-[80%] border-2 overflow-y-auto space-y-4 w-full lg:w-1/2'>
-
-                  <div className='flex flex-col space-y-4 p-4 w-full'>
-                    <div className='flex justify-start'> <p className='bg-white p-4 text-justify max-w-1/2 rounded-3xl'> tell me about rehani privacy </p> </div>
-                    <div className='flex justify-end'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> tell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacy </p> </div>
+              {qas.length ? (
+                <div className='flex flex-col items-center justify-center max-h-[67vh] w-full lg:w-1/2 bg-brown-200/80 rounded-2xl p-2'>
+                  <div className="overflow-y-auto scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent max-h-[65vh] w-full">
+                    {qas?.map((item, index) => (
+                      <div className='flex flex-col space-y-4 p-4 w-full' key={index}>
+                        <div className='flex justify-end'>
+                          <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl overflow-x-hidden'>
+                            {item.question}
+                          </p>
+                        </div>
+                        <div className='flex items-center space-x-4 justify-start'>
+                          <img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSe0jFhhEGZDdroVHXxac8gHoj7OZg-_tU6VBsM8BCRPpHul5zi' className='w-12 h-12 rounded-full' />
+                          <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'>
+                            {item.answer}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-
-                {qas?.map((item, index) => (
-                  <div className='flex flex-col space-y-4 p-4 w-full' key={index}>
-                    <div className='flex justify-start'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> {item.question} </p> </div>
-                    <div className='flex justify-end'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> {item.answer} </p> </div>
-                  </div>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <h1 className="bg-white flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+                  <Typewriter text="Hi there, what can I help you with today?" />
+                </h1>
+              ) }
 
               <div className='flex items-center justify-center w-full'>
                   <div className="flex space-x-4 items-center justify-center w-full lg:max-w-[50%] h-auto py-3 px-4 rounded-2xl bg-white/60">
                       <textarea
-                          className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
-                          placeholder="Send a message..."
-                          type="text"
-                          rows={rows}
-                          value={question}
-                          onChange={({ target }) => setQuestion(target.value)}
-                          onInput={(e) => {
-                              e.target.rows = question?.length ? 1 : 1;
-                              const rowsValue = Math.min(
-                              Math.ceil(e.target.scrollHeight / 80),
-                              10
-                              );
-                              e.target.rows = rowsValue;
-                              setRows(rowsValue);
-                          }}
+                        className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
+                        placeholder="Send a message..."
+                        type="text"
+                        rows={rows}
+                        value={question}
+                        onChange={({ target }) => setQuestion(target.value)}
+                        onInput={(e) => {
+                            e.target.rows = question?.length ? 1 : 1;
+                            const rowsValue = Math.min(
+                            Math.ceil(e.target.scrollHeight / 80),
+                            3
+                            );
+                            e.target.rows = rowsValue;
+                            setRows(rowsValue);
+                        }}
                       />
 
                       <Button
