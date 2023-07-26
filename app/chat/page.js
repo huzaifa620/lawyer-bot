@@ -1,14 +1,19 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Image from 'next/image';
 import Header from "@/components/Header";
 import Typewriter from "@/components/Typewriter";
 import { Button } from "@material-tailwind/react";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import axios from "axios";
+import Select from 'react-select'
+import { useSearchParams } from 'next/navigation'
 
 const ChatPage = () => {
+
+    const searchParams = useSearchParams()
+    const category = searchParams.get('category')
 
     const [qas, setQas] = useState([]);
     const [rows, setRows] = useState(1);
@@ -16,14 +21,35 @@ const ChatPage = () => {
     const [nameSpace, setNameSpace] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const customStyles = {
+      control: (provided, state) => ({
+        ...provided,
+        borderColor: state.isFocused ? 'transparent' : 'lightblue',
+        borderRadius: '8px',
+        boxShadow: 'none',
+        '&:hover': {
+          borderColor: 'transparent',
+        },
+      })
+    };
+  
+    const options = [
+      { value: 'banking', label: 'Banking' },
+      { value: 'real-estate', label: 'Real Estate' }
+    ]
+  
+    const onChangeSelect = (selectedOption) => {
+      setNameSpace(selectedOption.value);
+    }
+
     const getAnswer = async () => {
         setLoading(true)
         const body = {
           query: question,
           pineconeIndexName: "index-rehani-soko-1-index",
-          namespace: "rehani-soko-privacy-and-user-agreements"
+          namespace: (category === 'general_legal') ? nameSpace :  "rehani-soko-privacy-and-user-agreements"
         };
-    
+
         try {
           const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
     
@@ -98,38 +124,54 @@ const ChatPage = () => {
 
               <div className='flex items-center justify-center w-full'>
                   <div className="flex space-x-4 items-center justify-center w-full lg:max-w-[50%] h-auto py-3 px-4 rounded-2xl bg-white/60">
-                      <textarea
-                        className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
-                        placeholder="Send a message..."
-                        type="text"
-                        rows={rows}
-                        value={question}
-                        onChange={({ target }) => setQuestion(target.value)}
-                        onInput={(e) => {
-                            e.target.rows = question?.length ? 1 : 1;
-                            const rowsValue = Math.min(
-                            Math.ceil(e.target.scrollHeight / 80),
-                            3
-                            );
-                            e.target.rows = rowsValue;
-                            setRows(rowsValue);
-                        }}
-                      />
 
-                      <Button
-                      size="sm"
-                      color={question ? "teal" : "blue-gray"}
-                      disabled={!question}
-                      className="rounded-lg h-[44px] w-[50px]"
-                      onClick={getAnswer}
-                      >
-                      {loading ? <LoadingIndicator /> : 
-                          <span className="flex items-center justify-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                              <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
-                          </svg>
-                          </span>}
-                      </Button>
+                    <textarea
+                      className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
+                      placeholder="Send a message..."
+                      type="text"
+                      rows={rows}
+                      value={question}
+                      onChange={({ target }) => setQuestion(target.value)}
+                      onInput={(e) => {
+                          e.target.rows = question?.length ? 1 : 1;
+                          const rowsValue = Math.min(
+                          Math.ceil(e.target.scrollHeight / 80),
+                          3
+                          );
+                          e.target.rows = rowsValue;
+                          setRows(rowsValue);
+                      }}
+                    />
+
+                    { (category === 'general_legal') &&
+                      <div className="z-20 flex w-40 flex-col items-center justify-center gap-6">
+                        <Select
+                          className="w-full text-xs focus:outline-none border-none"
+                          styles={customStyles}
+                          options={options}
+                          placeholder={"Namespace"}
+                          value={options.find((option) => option.value === nameSpace)}
+                          onChange={onChangeSelect}
+                          menuPlacement="top"
+                        />
+                      </div>
+                    }
+
+                    <Button
+                    size="sm"
+                    color={question ? "teal" : "blue-gray"}
+                    disabled={!question}
+                    className="rounded-lg h-[44px] w-[50px]"
+                    onClick={getAnswer}
+                    >
+                    {loading ? <LoadingIndicator /> : 
+                        <span className="flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                            <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                        </svg>
+                        </span>}
+                    </Button>
+
                   </div>
               </div>
 
