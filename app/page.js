@@ -119,7 +119,7 @@ export default function Home() {
             ))}
           </div>
 
-          <h1 className="relative text-2xl lg:text-xl 2xl:text-4xl font-bold text-center px-2 w-full md:w-3/4 2xl:w-1/2 text-black/80 items-center justify-center">
+          <h1 className="relative text-2xl lg:text-xl 2xl:text-4xl font-bold text-center px-2 w-full md:w-3/4 2xl:w-1/2 text-black/80 items-center justify-center pb-12">
             <Typewriter text="Hi there, what can I help you with today?" />
           </h1>
 
