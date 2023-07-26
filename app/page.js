@@ -7,6 +7,7 @@ import LoadingIndicator from "@/components/LoadingIndicator";
 import Typewriter from "@/components/Typewriter";
 import Select from 'react-select'
 import axios from "axios";
+import Image from 'next/image';
 
 export default function Home() {
 
@@ -96,78 +97,53 @@ export default function Home() {
   }, [loading]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent bg-[#bc60a0]">
-      <Header />
-      <div className="flex flex-col space-y-12 items-center justify-center lg:px-0 bg-center min-h-[93%] h-[100%] w-full">
+    <div className="flex flex-col items-center justify-center min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" >
+      <div className="w-full h-full">
+        <Image
+          src="/images/bg.png"
+          alt="Background Image"
+          layout="fill"
+          objectFit="cover"
+        />
+        <Header />
+        <div className="flex flex-col space-y-12 items-center justify-center lg:px-0 bg-center min-h-[93%] h-[100%] w-full">
 
-      <div className="flex w-1/2 text-white text-5xl items-center justify-center space-x-4">
-        {[0, 1, 2, 3].map((index) => (
-         <p
-         key={index}
-         className={`bg-white rounded-full w-3 h-3 ${
-           index === visibleDots ? "h-9" : ""
-         }`}
-       ></p>
-        ))}
-      </div>
+          <div className="relative flex w-1/2 text-white text-5xl items-center justify-center space-x-4">
+            {[0, 1, 2, 3].map((index) => (
+            <p
+            key={index}
+            className={`bg-white rounded-full w-3 h-3 ${
+              index === visibleDots ? "h-9" : ""
+            }`}
+          ></p>
+            ))}
+          </div>
 
-        <h1 className={`text-md lg:text-lg 2xl:text-3xl font-semibold text-center px-4 w-full md:w-3/4 2xl:w-1/2 text-white items-center justify-center overflow-y-auto max-h-[50%] ${qas?.answer?.length > 50 && "text-justify"}`} key={qas?.answer}>
-          {qas ? (
-            <Typewriter text={qas.answer} />
-          ) : (
+          <h1 className="relative text-2xl lg:text-xl 2xl:text-4xl font-bold text-center px-2 w-full md:w-3/4 2xl:w-1/2 text-black/80 items-center justify-center">
             <Typewriter text="Hi there, what can I help you with today?" />
-          )}
-        </h1>
+          </h1>
 
-        <div className="sticky bottom-0 z-10 flex flex-col w-full px-4 lg:px-0 items-center space-y-12 relative pt-5 py-11">
-          <div className="z-20 flex w-72 flex-col items-center justify-center gap-6 shadow-2xl">
-            <Select
-              className="w-full focus:outline-none border-none"
-              styles={customStyles}
-              options={options}
-              placeholder={"Select Namespace"}
-              value={options.find((option) => option.value === nameSpace)}
-              onChange={onChangeSelect}
-            />
+          <div className="z-20 flex md:w-1/2 xl:w-1/4 flex-col items-center justify-center gap-6">
+
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+              General Legal Questions
+            </div>
+
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+              AI Based Search
+            </div>
+
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+              Virtual Assistant Tasks
+            </div>
+
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+              General Help
+            </div>
+
           </div>
 
-          <div className="flex space-x-4 items-center justify-center w-full lg:max-w-[50%] h-auto py-3 px-4 rounded-2xl bg-white">
-            <textarea
-              className="w-full outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2"
-              placeholder="Send a message"
-              type="text"
-              rows={rows}
-              value={question}
-              onChange={onChange}
-              onInput={(e) => {
-                e.target.rows = question?.length ? 1 : 1;
-                const rowsValue = Math.min(
-                  Math.ceil(e.target.scrollHeight / 80),
-                  10
-                );
-                e.target.rows = rowsValue;
-                setRows(rowsValue);
-              }}
-              disabled={!nameSpace}
-            />
-
-            <Button
-              size="sm"
-              color={question ? "teal" : "blue-gray"}
-              disabled={!question}
-              className="rounded-lg h-[44px] w-[50px]"
-              onClick={getAnswer}
-            >
-              {loading ? <LoadingIndicator /> : 
-                <span className="flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                    <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
-                  </svg>
-                </span>}
-            </Button>
-          </div>
         </div>
-
       </div>
     </div>
   );
