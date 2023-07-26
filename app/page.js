@@ -35,7 +35,7 @@ export default function Home() {
 
           <div className="z-20 flex md:w-1/2 xl:w-1/4 flex-col items-center justify-center gap-6">
 
-            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer" onClick={() => router.push('/chat')}>
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
               General Legal Questions
             </div>
 
@@ -47,7 +47,7 @@ export default function Home() {
               Case & Precedent Analysis
             </div>
 
-            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer">
+            <div className="bg-white w-full flex items-center justify-center p-4 rounded-3xl font-bold text-lg lg:text-xl text-black/80 bg-opacity-60 backdrop-blur hover:bg-opacity-80 hover:text-black backdrop-saturate-100 tracking-widest cursor-pointer" onClick={() => router.push('/chat')}>
               General Help
             </div>
 
