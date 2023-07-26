@@ -1,0 +1,124 @@
+'use client'
+
+import React, {useState} from 'react'
+import Image from 'next/image';
+import Header from "@/components/Header";
+import { Button } from "@material-tailwind/react";
+import LoadingIndicator from "@/components/LoadingIndicator";
+import axios from "axios";
+
+const page = () => {
+
+    const [qas, setQas] = useState([]);
+    const [rows, setRows] = useState(1);
+    const [question, setQuestion] = useState("");
+    const [nameSpace, setNameSpace] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const getAnswer = async () => {
+        setLoading(true)
+        const body = {
+          query: question,
+          pineconeIndexName: "index-rehani-soko-1-index",
+          namespace: "rehani-soko-privacy-and-user-agreements"
+        };
+    
+        try {
+          const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
+    
+          if (response.status === 200) {
+            const data = response.data;
+            const newQas = [
+              ...qas,
+              {
+                question: question,
+                answer: data.answer
+              }
+            ];
+            setQas(newQas);
+            setQuestion("");
+            setRows(1);
+            setLoading(false)
+          } else {
+            console.error("Error:", response.status);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+    }; 
+
+    return (
+        <div className="flex flex-col items-center justify-end min-h-screen space-y-12 w-full scrollbar-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" >
+          <div className="w-full h-full">
+            <Image
+              src="/images/bg.png"
+              alt="Background Image"
+              layout="fill"
+              objectFit="cover"
+            />
+            <Header />
+            <div className="flex relative flex-col space-y-12 items-center justify-between lg:px-0 bg-center w-full min-h-[93vh] py-12">
+
+              <div className='flex items-center justify-center w-full'>
+                <img src='https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSe0jFhhEGZDdroVHXxac8gHoj7OZg-_tU6VBsM8BCRPpHul5zi' className='w-24 h-24 rounded-full' />
+              </div>
+
+              <div className='flex flex-col items-center justify-center min-h-[80%] border-2 overflow-y-auto space-y-4 w-full lg:w-1/2'>
+
+                  <div className='flex flex-col space-y-4 p-4 w-full'>
+                    <div className='flex justify-start'> <p className='bg-white p-4 text-justify max-w-1/2 rounded-3xl'> tell me about rehani privacy </p> </div>
+                    <div className='flex justify-end'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> tell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacytell me about rehani privacy </p> </div>
+                  </div>
+
+                {qas?.map((item, index) => (
+                  <div className='flex flex-col space-y-4 p-4 w-full' key={index}>
+                    <div className='flex justify-start'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> {item.question} </p> </div>
+                    <div className='flex justify-end'> <p className='bg-white p-4 text-justify max-w-[60%] rounded-3xl'> {item.answer} </p> </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className='flex items-center justify-center w-full'>
+                  <div className="flex space-x-4 items-center justify-center w-full lg:max-w-[50%] h-auto py-3 px-4 rounded-2xl bg-white/60">
+                      <textarea
+                          className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
+                          placeholder="Send a message..."
+                          type="text"
+                          rows={rows}
+                          value={question}
+                          onChange={({ target }) => setQuestion(target.value)}
+                          onInput={(e) => {
+                              e.target.rows = question?.length ? 1 : 1;
+                              const rowsValue = Math.min(
+                              Math.ceil(e.target.scrollHeight / 80),
+                              10
+                              );
+                              e.target.rows = rowsValue;
+                              setRows(rowsValue);
+                          }}
+                      />
+
+                      <Button
+                      size="sm"
+                      color={question ? "teal" : "blue-gray"}
+                      disabled={!question}
+                      className="rounded-lg h-[44px] w-[50px]"
+                      onClick={getAnswer}
+                      >
+                      {loading ? <LoadingIndicator /> : 
+                          <span className="flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                              <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                          </svg>
+                          </span>}
+                      </Button>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+    );
+}
+
+export default page
