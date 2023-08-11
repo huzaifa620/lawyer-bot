@@ -127,19 +127,17 @@ const ChatPage = () => {
 
                     <textarea
                       className="w-full z-40 outline-none scroll-container scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent font-semibold py-3 text-justify px-2 bg-transparent placeholder-gray-600"
-                      placeholder="Send a message..."
+                      placeholder={!nameSpace ? "Please select a topic on the right..." : "Ask a question..."}
                       type="text"
                       rows={rows}
                       value={question}
                       onChange={({ target }) => setQuestion(target.value)}
+                      disabled={!nameSpace}
                       onInput={(e) => {
-                          e.target.rows = question?.length ? 1 : 1;
-                          const rowsValue = Math.min(
-                          Math.ceil(e.target.scrollHeight / 80),
-                          3
-                          );
-                          e.target.rows = rowsValue;
-                          setRows(rowsValue);
+                        e.target.rows = question?.length ? 1 : 1;
+                        const rowsValue = Math.min( Math.ceil(e.target.scrollHeight / 80), 3 );
+                        e.target.rows = rowsValue;
+                        setRows(rowsValue);
                       }}
                     />
 
@@ -149,7 +147,7 @@ const ChatPage = () => {
                           className="w-full text-xs focus:outline-none border-none"
                           styles={customStyles}
                           options={options}
-                          placeholder={"Namespace"}
+                          placeholder={"Topic"}
                           value={options.find((option) => option.value === nameSpace)}
                           onChange={onChangeSelect}
                           menuPlacement="top"
@@ -158,18 +156,18 @@ const ChatPage = () => {
                     }
 
                     <Button
-                    size="sm"
-                    color={question ? "teal" : "blue-gray"}
-                    disabled={!question}
-                    className="rounded-lg h-[44px] w-[50px]"
-                    onClick={getAnswer}
-                    >
-                    {loading ? <LoadingIndicator /> : 
-                        <span className="flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                            <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
-                        </svg>
-                        </span>}
+                      size="sm"
+                      color={question ? "teal" : "blue-gray"}
+                      disabled={!question}
+                      className="rounded-lg h-[44px] w-[50px]"
+                      onClick={getAnswer}
+                      >
+                      {loading ? <LoadingIndicator /> : 
+                          <span className="flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                              <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+                          </svg>
+                          </span>}
                     </Button>
 
                   </div>
