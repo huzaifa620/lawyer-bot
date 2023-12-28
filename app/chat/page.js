@@ -51,7 +51,7 @@ const ChatPage = () => {
         };
 
         try {
-          const response = await axios.post("https://rehani-soko.owaisahmed8.repl.co/chatbot/send", body);
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/query`, body);
     
           if (response.status === 200) {
             const data = response.data;
