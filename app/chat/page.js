@@ -46,7 +46,7 @@ const ChatPage = () => {
         setLoading(true)
         const body = {
           query: question,
-          pineconeIndexName: "index-rehani-soko-1-index",
+          // pineconeIndexName: "index-rehani-soko-1-index",
           namespace: (category === 'general_legal') ? nameSpace :  "rehani-soko-privacy-and-user-agreements"
         };
 
